@@ -8,31 +8,35 @@ import multer from "multer";
 import userRoute from "./routes/user/index.js";
 
 
-async function startServer() {
-	const app = express();
-	await loaders.init({ expressApp: app });
+// async function startServer() {
+// 	const app = express();
+// 	await loaders.init({ expressApp: app });
 
-	const server = app.listen(config.env.port, () =>
-		console.log(`Server Started ~ :${config.env.port}`)
-	);
+// 	const server = app.listen(config.env.port, () =>
+// 		console.log(`Server Started ~ :${config.env.port}`)
+// 	);
 
-	process.on("uncaughtException", (err) => {
-		console.log("uncaughtException! Shutting Down the Server...");
-		console.log(err);
+// 	process.on("uncaughtException", (err) => {
+// 		console.log("uncaughtException! Shutting Down the Server...");
+// 		console.log(err);
 
-		process.exit(1);
-	});
+// 		process.exit(1);
+// 	});
 
-	process.on("unhandledRejection", (err) => {
-		console.log("unhandledRejection! Shutting Down the Server...");
-		console.log(err);
-		server.close(() => {
-			process.exit(1);
-		});
-	});
-}
+// 	process.on("unhandledRejection", (err) => {
+// 		console.log("unhandledRejection! Shutting Down the Server...");
+// 		console.log(err);
+// 		server.close(() => {
+// 			process.exit(1);
+// 		});
+// 	});
+// }
 
-startServer();
+// startServer();
+
+
+await loaders.init({ expressApp: app });
+const app = express();
 
 const protectedRouter = express.Router();
 const unProtectedRouter = express.Router();
