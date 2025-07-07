@@ -5,6 +5,8 @@ import config from "./config/index.js";
 
 // Create app first
 const app = express();
+app.get("/favicon.ico", (req, res) => res.status(204).end()); // Avoid 500 on faviconn
+
 
 // Initialize loaders (middleware, routes, etc.)
 await loaders.init({ expressApp: app });
