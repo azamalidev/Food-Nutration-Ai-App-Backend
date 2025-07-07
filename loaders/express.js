@@ -23,6 +23,8 @@ export default async function expressLoader({ app }) {
 
   app.use("/api", protectedRouter);
   app.use("/", unProtectedRouter);
+  app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 
   app.use(express.urlencoded({ extended: true }));
 }
