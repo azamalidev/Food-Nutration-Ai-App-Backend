@@ -10,6 +10,7 @@ export default async function mongooseLoader() {
   await mongoose.connect(config.env.mongodbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    family: 4 // ⬅️ Forces IPv4
   })
 
   return connection.db
