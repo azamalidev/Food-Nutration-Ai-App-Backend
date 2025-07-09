@@ -10,7 +10,7 @@ router.post("/login", validate(authValidation.login), controllers.login);
 router.post("/register", validate(authValidation.register), controllers.register);
 router.get("/profile", authenticate, controllers.userProfile);
 router.patch("/profile/update", authenticate, validate(authValidation.update), controllers.update);
-router.post("/meal", controllers.generateMealPlan);
+router.post("/mealGen", controllers.generateMealPlan);
 router.post("/recipe", controllers.getRecipeRecommendations);
 router.post("/grocery", controllers.generateGroceryList);
 

@@ -1,3 +1,5 @@
+import DishService from "../../services/dishes.js";
+import MealService from "../../services/meal.js";
 import UserService from "../../services/user.js";
 import httpResponse from "../../utils/httpResponse.js";
 
@@ -28,11 +30,19 @@ const controller = {
   userProfile: async (req, res) => {
     try {
       const data = await UserService.UserProfile(req.user._id);
-      return httpResponse.SUCCESS(res, data);
+      const meals = await MealService.getUserMeals(req.user._id);
+      const dish = await DishService.getUserDish(req.user._id);
+
+      return httpResponse.SUCCESS(res, {
+        data,
+        meals,
+        dish
+      });
     } catch (error) {
       return httpResponse.INTERNAL_SERVER(res, error);
     }
   },
+
 
   update: async (req, res) => {
     req.body.id = req.user._id;
