@@ -43,6 +43,19 @@ const controller = {
         }
     },
 
+    getAll: async (req, res) => {
+        try {
+            const data = await MealService.getAll();
+            if (data.message === "success") {
+                return httpResponse.SUCCESS(res, data.data);
+            } else {
+                return httpResponse.INTERNAL_SERVER(res, data.data);
+            }
+        } catch (error) {
+            return httpResponse.INTERNAL_SERVER(res, error.message);
+        }
+    },
+
     // Get meal by specific date
     getMealByDate: async (req, res) => {
         try {

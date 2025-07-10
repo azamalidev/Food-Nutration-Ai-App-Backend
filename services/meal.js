@@ -2,6 +2,20 @@ import MealModel from "../models/meal.js";
 import DishModel from "../models/dishes.js";
 
 const MealService = {
+
+    getAll: async () => {
+        try {
+
+
+            const meals = await MealModel.find()
+                .populate('breakfast_dish_id lunch_dish_id dinner_dish_id snack_dish_id')
+                .sort({ plan_date: -1 });
+            return { message: "success", data: meals };
+        } catch (error) {
+            return { message: "error", data: error.message };
+        }
+    },
+
     // Get all meals for a user
     getUserMeals: async (userId) => {
         try {

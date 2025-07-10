@@ -45,7 +45,20 @@ const controller = {
 
 
   update: async (req, res) => {
+
     req.body.id = req.user._id;
+
+    const updateResponse = await UserService.update(req.body);
+    if (updateResponse) {
+      return httpResponse.SUCCESS(res, updateResponse);
+    } else {
+      return httpResponse.INTERNAL_SERVER(res, updateResponse);
+    }
+  },
+
+  updateAdmin: async (req, res) => {
+    console.log("gggzsxdcfvg", req.body)
+    req.body.id = req.params.id;
 
     const updateResponse = await UserService.update(req.body);
     console.log("updateResponse", updateResponse)
@@ -56,8 +69,46 @@ const controller = {
     }
   },
 
+  delete: async (req, res) => {
+    try {
+      const data = await UserService.delete(req.params.id);
+      if (data.message === "success") {
+        return httpResponse.SUCCESS(res, data.data);
+      } else {
+        return httpResponse.NOT_FOUND(res, data.data);
+      }
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER(res, error.message);
+    }
+  },
+
+  getAll: async (req, res) => {
+    try {
+      const data = await UserService.getAll();
+      if (data.message === "success") {
+        return httpResponse.SUCCESS(res, data.data);
+      } else {
+        return httpResponse.INTERNAL_SERVER(res, data.data);
+      }
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER(res, error.message);
+    }
+  },
 
 
+  // Get user by ID
+  getById: async (req, res) => {
+    try {
+      const data = await UserService.getById(req.params.id);
+      if (data.message === "success") {
+        return httpResponse.SUCCESS(res, data.data);
+      } else {
+        return httpResponse.NOT_FOUND(res, data.data);
+      }
+    } catch (error) {
+      return httpResponse.INTERNAL_SERVER(res, error.message);
+    }
+  },
 
 
   generateMealPlan: async (req, res) => {

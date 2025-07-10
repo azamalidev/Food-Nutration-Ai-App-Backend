@@ -11,17 +11,14 @@ const router = express.Router();
 
 // Meal CRUD operations
 router.post("/", controllers.create);
-router.get("/", controllers.getUserMeals);
-router.get("/:id", controllers.getById);
-router.put("/:id", validate(mealValidation.update), controllers.update);
-router.delete("/:id", controllers.delete);
-
-// Date-based queries
+router.get("/all", controllers.getAll);
 router.get("/date/:date", controllers.getMealByDate);
 router.get("/range/meals", controllers.getMealsByDateRange);
 router.get("/weekly/plan", controllers.getWeeklyMealPlan);
-
-// Nutrition tracking
 router.get("/nutrition/summary", controllers.getNutritionSummary);
+router.get("/", controllers.getUserMeals);
+router.get("/:id", controllers.getById); // move this to the bottom
+router.put("/:id", validate(mealValidation.update), controllers.update);
+router.delete("/:id", controllers.delete);
 
 export default router;
