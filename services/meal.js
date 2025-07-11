@@ -141,17 +141,45 @@ const MealService = {
     },
 
     // Delete meal plan
+    // delete: async (id) => {
+    //     try {
+    //         const deletedMeal = await MealModel.findByIdAndDelete(id);
+    //         if (!deletedMeal) {
+    //             return { message: "error", data: "Meal plan not found" };
+    //         }
+    //         return { message: "success", data: "Meal plan deleted successfully" };
+    //     } catch (error) {
+    //         return { message: "error", data: error.message };
+    //     }
+    // },
+
+
     delete: async (id) => {
         try {
-            const deletedMeal = await MealModel.findByIdAndDelete(id);
-            if (!deletedMeal) {
+            const meal = await MealModel.findById(id);
+            if (!meal) {
                 return { message: "error", data: "Meal plan not found" };
             }
-            return { message: "success", data: "Meal plan deleted successfully" };
+
+            // Delete related dishes
+            const dishIds = [
+                meal.breakfast_dish_id,
+                meal.lunch_dish_id,
+                meal.dinner_dish_id,
+                meal.snack_dish_id,
+            ].filter(Boolean); // filter out null or undefined
+
+            await DishModel.deleteMany({ _id: { $in: dishIds } });
+
+            // Delete the meal itself
+            await MealModel.findByIdAndDelete(id);
+
+            return { message: "success", data: "Meal plan and its dishes deleted successfully" };
         } catch (error) {
             return { message: "error", data: error.message };
         }
     },
+
 
     // Calculate nutrition totals from dishes
     calculateNutritionTotals: async (mealData) => {

@@ -114,6 +114,7 @@ const controller = {
   generateMealPlan: async (req, res) => {
     try {
       const userProfile = req.body;
+      console.log("req.body", req.body)
 
       const systemPrompt = `You are a certified nutritionist AI. Generate a personalized daily meal plan based on the user's profile.
       
