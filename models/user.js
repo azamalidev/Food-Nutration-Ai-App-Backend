@@ -16,8 +16,13 @@ const schema = Schema({
     type: String,
     required: true,
     maxlength: 50,
-    enum: ["USER", "ADMIN"],
+    enum: ["USER", "ADMIN", "NUTRITIONIST"],
   },
+  qualifications: { type: String, required: false, maxlength: 200 },
+  specialization: { type: String, required: false, maxlength: 100 },
+  yearsOfExperience: { type: Number, required: false },
+  certifications: [{ type: String }],
+  bio: { type: String, required: false, maxlength: 1000 },
 
 });
 export default mongoose.model("User", schema);

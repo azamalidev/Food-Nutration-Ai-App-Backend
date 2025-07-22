@@ -6,7 +6,13 @@ const register = {
     email: Joi.string().required().email(),
     password: Joi.string().required(),
 
-    role: Joi.string().valid("USER", "ADMIN").default("USER"),
+    role: Joi.string().valid("USER", "ADMIN", "NUTRITIONIST").default("USER"),
+    qualifications: Joi.string(),
+    specialization: Joi.string(),
+    yearsOfExperience: Joi.number(),
+    certifications: Joi.array().items(Joi.string()),
+    name: Joi.string(),
+    bio: Joi.string()
   }),
 };
 
@@ -26,6 +32,7 @@ const update = {
 
   body: Joi.object().keys({
     name: Joi.string(),
+    bio: Joi.string(),
     age: Joi.number(),
     gender: Joi.string(),
     weight: Joi.number(),
@@ -35,7 +42,12 @@ const update = {
     healthGoal: Joi.string(),
 
     email: Joi.string().email(),
-    // role: Joi.string()
+    qualifications: Joi.string(),
+    specialization: Joi.string(),
+    yearsOfExperience: Joi.number(),
+    certifications: Joi.array().items(Joi.string()),
+    role: Joi.string().valid("USER", "ADMIN", "NUTRITIONIST").default("USER"),
+
   }),
 };
 
